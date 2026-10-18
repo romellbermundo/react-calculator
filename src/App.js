@@ -50,13 +50,13 @@ function App() {
   return (
     <main className="app-shell">
       <header className="app-heading">
-        <span className="eyebrow">A LITTLE CLARITY, EVERY DAY</span>
-        <h1>The Quiet Calculator</h1>
-        <p>For the little things that add up.</p>
+        <span className="eyebrow">PRECISION INTERFACE // 2076</span>
+        <h1>NEXUS <span>01</span></h1>
+        <p>Intelligence in every calculation.</p>
       </header>
 
       <section className="calculator-grid" aria-label="Calculator">
-        <div className="output" aria-label="Calculator display">
+        <div className="output" aria-label="Calculator display">\n          <div className="display-topline"><span className="status-dot" /> SYSTEM ONLINE <span className="display-channel">CALC / 01</span></div>
           <div className="previous-operand">{formatOperand(state.previousOperand)} {state.operation}</div>
           <div className="current-operand" aria-live="polite" aria-atomic="true">
             {formatOperand(state.currentOperand)}
@@ -77,17 +77,17 @@ function App() {
 
       <footer className="app-footer">
         <span className="footer-symbol" aria-hidden="true">✳</span>
-        <p className="footer-quote">“A little clarity goes a long way.”</p>
+        <p className="footer-quote">“The future is calculated.”</p>
         <div className="footer-links">
           <button type="button" aria-expanded={footerPanel === 'about'} onClick={() => setFooterPanel(footerPanel === 'about' ? null : 'about')}>About</button>
           <button type="button" aria-expanded={footerPanel === 'disclaimer'} onClick={() => setFooterPanel(footerPanel === 'disclaimer' ? null : 'disclaimer')}>Disclaimer</button>
           <a href="https://github.com/romellbermundo/react-calculator" target="_blank" rel="noopener noreferrer">Source code ↗</a>
         </div>
         <div className="footer-panel" aria-live="polite">
-          {footerPanel === 'about' && 'A simple calculator, thoughtfully refined for everyday moments.'}
+          {footerPanel === 'about' && 'NEXUS 01 is a futuristic, responsive calculator built with React. A precision instrument for everyday arithmetic.'}
           {footerPanel === 'disclaimer' && 'For everyday calculations. Results may be affected by floating-point precision; verify important figures.'}
         </div>
-        <small>The Quiet Calculator · v1.1.0</small>
+        <small>NEXUS 01 · v1.2.0</small>
       </footer>
     </main>
   );
