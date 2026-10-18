@@ -89,7 +89,7 @@ function App() {
           {footerPanel === 'about' && 'NEXUS 01 is a futuristic, responsive calculator built with React. A precision instrument for everyday arithmetic.'}
           {footerPanel === 'disclaimer' && 'For everyday calculations. Results may be affected by floating-point precision; verify important figures.'}
         </div>
-        <small>NEXUS 01 · v1.3.0</small>
+        <small>NEXUS 01 · v1.4.0</small>
       </footer>
     </main>
   );
