@@ -37,8 +37,10 @@ function App() {
       const current = formatOperand(state.currentOperand);
       dispatch(action);
       if (previous || (current && current !== '0')) {
-        setClearing({ previous, current, id: Date.now() });
-        clearTimer.current = window.setTimeout(() => setClearing(null), 600);
+        const digitCount = Math.max(previous.replace(/[^0-9]/g, '').length, current.replace(/[^0-9]/g, '').length, 1);
+        const duration = digitCount * 60;
+        setClearing({ previous, current, id: Date.now(), duration });
+        clearTimer.current = window.setTimeout(() => setClearing(null), duration);
       } else setClearing(null);
     } else {
       window.clearTimeout(clearTimer.current);
@@ -95,9 +97,9 @@ function App() {
       <section className="calculator-grid" aria-label="Calculator">
         <div className="output" aria-label="Calculator display">
           <div className="display-topline"><span className="status-dot" /> SYSTEM ONLINE <span className="display-channel">CALC / 01</span></div>
-          <div className="previous-operand">{clearing ? <span key={`prev-${clearing.id}`} className="clear-digits">{Array.from(clearing.previous).map((char, i, chars) => <span key={i} style={{ '--clear-step': `${i * (0.26 / Math.max(1, chars.length - 1))}s` }}>{char === ' ' ? '\u00a0' : char}</span>)}</span> : <>{formatOperand(state.previousOperand)} {state.operation}</>}</div>
+          <div className="previous-operand">{clearing ? <span key={`prev-${clearing.id}`} className="clear-digits">{Array.from(clearing.previous).map((char, i, chars) => <span key={i} style={{ '--clear-step': `${i * (Math.max(0, clearing.duration - 340) / Math.max(1, chars.length - 1)) / 1000}s` }}>{char === ' ' ? '\u00a0' : char}</span>)}</span> : <>{formatOperand(state.previousOperand)} {state.operation}</>}</div>
           <div className="current-operand" aria-live="polite" aria-atomic="true">
-            {clearing ? <span key={`current-${clearing.id}`} className="clear-digits">{Array.from(clearing.current).map((char, i, chars) => <span key={i} style={{ '--clear-step': `${i * (0.26 / Math.max(1, chars.length - 1))}s` }}>{char}</span>)}</span> : formatOperand(state.currentOperand)}
+            {clearing ? <span key={`current-${clearing.id}`} className="clear-digits">{Array.from(clearing.current).map((char, i, chars) => <span key={i} style={{ '--clear-step': `${i * (Math.max(0, clearing.duration - 340) / Math.max(1, chars.length - 1)) / 1000}s` }}>{char}</span>)}</span> : formatOperand(state.currentOperand)}
           </div>
           <div className="display-bottomline"><span>READY FOR INPUT</span><span className="signal-bars" aria-hidden="true">▂ ▄ ▆ █</span></div>
         </div>
