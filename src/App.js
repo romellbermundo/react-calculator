@@ -154,7 +154,7 @@ function App() {\n    const [footerPanel, setFooterPanel] = useState(null)
           <a href="https://github.com/romellbermundo/react-calculator" target="_blank" rel="noopener noreferrer">Source code ↗</a>
         </div>
         <div className="footer-panel" aria-live="polite">{footerPanel === "about" ? "A simple calculator, thoughtfully refined for everyday moments." : footerPanel === "disclaimer" ? "For everyday calculations. Results may be affected by floating-point precision; verify important figures." : null}</div>
-        <small>The Quiet Calculator · v1.0.0</small>
+        <small>The Quiet Calculator · v1.0.1</small>
       </footer>
       </main>
   )
