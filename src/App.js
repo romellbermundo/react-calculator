@@ -1,170 +1,96 @@
-import { useReducer, useState } from "react"
-import DigitButton from "./DigitButton"
-import OperationButton from "./OperationButton"
-import "./App.css"
+import { useEffect, useReducer, useState } from 'react';
+import { ACTIONS, calculatorReducer, formatOperand, initialState } from './calculator';
+import './App.css';
 
-export const ACTIONS = {
-    ADD_DIGIT: 'add-digit',
-    CHOOSE_OPERATION: 'choose-operation',
-    CLEAR: 'clear',
-    DELETE_DIGIT: 'delete-digit',
-    EVALUATE: 'evaluate'
-}
+const keys = [
+  { label: 'AC', action: ACTIONS.CLEAR, className: 'span-two utility-key', accessible: 'Clear all' },
+  { label: 'DEL', action: ACTIONS.DELETE_DIGIT, className: 'utility-key', accessible: 'Delete last digit' },
+  { label: '÷', action: ACTIONS.CHOOSE_OPERATION, value: '÷', className: 'operation-key', accessible: 'Divide' },
+  { label: '7' }, { label: '8' }, { label: '9' },
+  { label: '×', action: ACTIONS.CHOOSE_OPERATION, value: '×', className: 'operation-key', accessible: 'Multiply' },
+  { label: '4' }, { label: '5' }, { label: '6' },
+  { label: '−', action: ACTIONS.CHOOSE_OPERATION, value: '−', className: 'operation-key', accessible: 'Subtract' },
+  { label: '1' }, { label: '2' }, { label: '3' },
+  { label: '+', action: ACTIONS.CHOOSE_OPERATION, value: '+', className: 'operation-key', accessible: 'Add' },
+  { label: '.', accessible: 'Decimal point' }, { label: '0' },
+  { label: '=', action: ACTIONS.EVALUATE, className: 'span-two equals-key', accessible: 'Equals' },
+];
 
-function reducer(state, {type, payload}){
-    switch(type){
-        case ACTIONS.ADD_DIGIT:
-            if (state.overwrite) {
-                return {
-                    ...state,
-                    currentOperand: payload.digit,
-                    overwrite: false,
-                }
-            }
-            if (payload.digit === "0" && state.currentOperand === "0") return state
-            if (payload.digit === "." && state.currentOperand.includes(".")) return state
-            return {
-                ...state,
-                currentOperand: `${state.currentOperand || ""}${payload.digit}`,
-            }
-        case ACTIONS.CHOOSE_OPERATION:
-                if (state.currentOperand == null && state.previousOperand == null) {
-                    return state
-                }
-                if (state.currentOperand == null){
-                    return {
-                        ...state,
-                        operation: payload.operation,
-                    }
-                }
-                if (state.previousOperand == null) {
-                    return {
-                        ...state,
-                        operation: payload.operation,
-                        previousOperand: state.currentOperand,
-                        currentOperand: null,
-                    }
-                }
-
-                return {
-                    ...state,
-                    previousOperand:evaluate(state),
-                    operation: payload.operation,
-                    currentOperand: null
-                }
-        case ACTIONS.CLEAR:
-            return {}
-        case ACTIONS.DELETE_DIGIT:
-            if (state.overwrite) {
-                return {
-                    ...state,
-                    overwrite: false,
-                    currentOperand: null
-                }
-            }
-            if (state.currentOperand == null) return state
-            if (state.currentOperand.length === 1) {
-                return {...state, currentOperand: null}
-            }
-
-            return {
-                ...state,
-                currentOperand: state.currentOperand.slice(0, -1)
-            }
-        case ACTIONS.EVALUATE:
-            if (state.operation == null || state.currentOperand == null || state.previousOperand == null) {
-                return state
-            }
-
-            return {
-                ...state,
-                overwrite: true,
-                previousOperand: null,
-                operation: null,
-                currentOperand: evaluate(state),
-            }
-    }
-}
-function evaluate({currentOperand,previousOperand,operation}) {
-    const prev = parseFloat(previousOperand)
-    const current = parseFloat(currentOperand)
-    if (isNaN(prev) || isNaN(current)) return ""
-    let computation = ""
-    switch (operation) {
-        case "+":
-            computation = prev + current
-            break
-        case "-":
-            computation = prev - current
-            break
-        case "*":
-            computation = prev * current
-            break
-        case "÷":
-            computation = prev / current
-            break
-    }
-    return computation.toString()
-}
-
-const INTEGER_FORMATTER = new Intl.NumberFormat("en-us", {
-    maximumFractionDigits: 0,
-})
-function formatOperand(operand) {
-    if (operand == null) return
-    const [integer, decimal] = operand.split('.')
-    if (decimal == null) return INTEGER_FORMATTER.format(integer)
-    return `${INTEGER_FORMATTER.format(integer)}.${decimal}`
-}
+const keyboardOperations = { '+': '+', '-': '−', '*': '×', '/': '÷' };
 
 function App() {
-    const [footerPanel, setFooterPanel] = useState(null)
-    const [{ currentOperand, previousOperand, operation}, dispatch] = useReducer(reducer, {})
+  const [state, dispatch] = useReducer(calculatorReducer, initialState);
+  const [footerPanel, setFooterPanel] = useState(null);
 
-    return (
-      <main className="app-shell">
-        <header className="app-heading">
-          <span className="eyebrow">A LITTLE CLARITY, EVERY DAY</span>
-          <h1>The Quiet Calculator</h1>
-          <p>For the little things that add up.</p>
-        </header>
-      <div className="calculator-grid" aria-label="Calculator">
-          <div className="output">
-              <div className="previous-operand" aria-label="Previous calculation">{formatOperand(previousOperand)} {operation}</div>
-              <div className="current-operand" aria-live="polite" aria-label="Current result">{formatOperand(currentOperand)}</div>
+  useEffect(() => {
+    function handleKeyDown(event) {
+      if (event.altKey || event.ctrlKey || event.metaKey || event.target instanceof HTMLInputElement) return;
+      const key = event.key;
+      if (/^[0-9.]$/.test(key)) dispatch({ type: ACTIONS.ADD_DIGIT, payload: { digit: key } });
+      else if (keyboardOperations[key]) dispatch({ type: ACTIONS.CHOOSE_OPERATION, payload: { operation: keyboardOperations[key] } });
+      else if (key === 'Enter' || key === '=') dispatch({ type: ACTIONS.EVALUATE });
+      else if (key === 'Backspace') dispatch({ type: ACTIONS.DELETE_DIGIT });
+      else if (key === 'Escape') dispatch({ type: ACTIONS.CLEAR });
+      else return;
+      event.preventDefault();
+    }
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  function pressKey(key) {
+    dispatch({
+      type: key.action || ACTIONS.ADD_DIGIT,
+      payload: key.action === ACTIONS.CHOOSE_OPERATION
+        ? { operation: key.value }
+        : { digit: key.label },
+    });
+  }
+
+  return (
+    <main className="app-shell">
+      <header className="app-heading">
+        <span className="eyebrow">A LITTLE CLARITY, EVERY DAY</span>
+        <h1>The Quiet Calculator</h1>
+        <p>For the little things that add up.</p>
+      </header>
+
+      <section className="calculator-grid" aria-label="Calculator">
+        <div className="output" aria-label="Calculator display">
+          <div className="previous-operand">{formatOperand(state.previousOperand)} {state.operation}</div>
+          <div className="current-operand" aria-live="polite" aria-atomic="true">
+            {formatOperand(state.currentOperand)}
           </div>
-          <button className="span-two utility-key" onClick={() => dispatch({ type: ACTIONS.CLEAR})}>AC</button>
-          <button className="utility-key" onClick={() => dispatch({ type: ACTIONS.DELETE_DIGIT})}>DEL</button>
-          <OperationButton operation="÷" dispatch={dispatch}/>
-          <DigitButton digit="1" dispatch={dispatch}/>
-          <DigitButton digit="2" dispatch={dispatch}/>
-          <DigitButton digit="3" dispatch={dispatch}/>
-          <OperationButton operation="*" dispatch={dispatch}/>
-          <DigitButton digit="4" dispatch={dispatch}/>
-          <DigitButton digit="5" dispatch={dispatch}/>
-          <DigitButton digit="6" dispatch={dispatch}/>
-          <OperationButton operation="+" dispatch={dispatch}/>
-          <DigitButton digit="7" dispatch={dispatch}/>
-          <DigitButton digit="8" dispatch={dispatch}/>
-          <DigitButton digit="9" dispatch={dispatch}/>
-          <OperationButton operation="-" dispatch={dispatch}/>
-          <DigitButton digit="." dispatch={dispatch}/>
-          <DigitButton digit="0" dispatch={dispatch}/>
-          <button className="span-two equals-key" onClick={() => dispatch({ type: ACTIONS.EVALUATE})}>=</button>
-      </div>
+        </div>
+        {keys.map((key) => (
+          <button
+            key={key.label}
+            type="button"
+            className={key.className || ''}
+            aria-label={key.accessible || key.label}
+            onClick={() => pressKey(key)}
+          >
+            {key.label}
+          </button>
+        ))}
+      </section>
+
       <footer className="app-footer">
         <span className="footer-symbol" aria-hidden="true">✳</span>
         <p className="footer-quote">“A little clarity goes a long way.”</p>
         <div className="footer-links">
-          <button type="button" onClick={() => setFooterPanel(footerPanel === "about" ? null : "about")}>About</button>
-          <button type="button" onClick={() => setFooterPanel(footerPanel === "disclaimer" ? null : "disclaimer")}>Disclaimer</button>
+          <button type="button" aria-expanded={footerPanel === 'about'} onClick={() => setFooterPanel(footerPanel === 'about' ? null : 'about')}>About</button>
+          <button type="button" aria-expanded={footerPanel === 'disclaimer'} onClick={() => setFooterPanel(footerPanel === 'disclaimer' ? null : 'disclaimer')}>Disclaimer</button>
           <a href="https://github.com/romellbermundo/react-calculator" target="_blank" rel="noopener noreferrer">Source code ↗</a>
         </div>
-        <div className="footer-panel" aria-live="polite">{footerPanel === "about" ? "A simple calculator, thoughtfully refined for everyday moments." : footerPanel === "disclaimer" ? "For everyday calculations. Results may be affected by floating-point precision; verify important figures." : null}</div>
-        <small>The Quiet Calculator · v1.0.1</small>
+        <div className="footer-panel" aria-live="polite">
+          {footerPanel === 'about' && 'A simple calculator, thoughtfully refined for everyday moments.'}
+          {footerPanel === 'disclaimer' && 'For everyday calculations. Results may be affected by floating-point precision; verify important figures.'}
+        </div>
+        <small>The Quiet Calculator · v1.1.0</small>
       </footer>
-      </main>
-  )
+    </main>
+  );
 }
 
-export default App
+export default App;
