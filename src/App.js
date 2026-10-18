@@ -23,10 +23,29 @@ function App() {
   const [footerPanel, setFooterPanel] = useState(null);
   const [glowingKey, setGlowingKey] = useState(null);
   const glowTimer = useRef(null);
+  const clearTimer = useRef(null);
+  const [clearing, setClearing] = useState(null);
   const [startupLights] = useState(() => keys.map(() => Math.random() * 0.55));
   const [startupActive, setStartupActive] = useState(true);
 
-  useEffect(() => () => window.clearTimeout(glowTimer.current), []);
+  useEffect(() => () => { window.clearTimeout(glowTimer.current); window.clearTimeout(clearTimer.current); }, []);
+
+  function dispatchWithClear(action) {
+    if (action.type === ACTIONS.CLEAR) {
+      window.clearTimeout(clearTimer.current);
+      const previous = `${formatOperand(state.previousOperand)} ${state.operation || ''}`.trim();
+      const current = formatOperand(state.currentOperand);
+      dispatch(action);
+      if (previous || (current && current !== '0')) {
+        setClearing({ previous, current, id: Date.now() });
+        clearTimer.current = window.setTimeout(() => setClearing(null), 1250);
+      } else setClearing(null);
+    } else {
+      window.clearTimeout(clearTimer.current);
+      setClearing(null);
+      dispatch(action);
+    }
+  }
 
   useEffect(() => {
     const timer = window.setTimeout(() => setStartupActive(false), 1000);
@@ -43,21 +62,21 @@ function App() {
     function handleKeyDown(event) {
       if (event.altKey || event.ctrlKey || event.metaKey || event.target instanceof HTMLInputElement) return;
       const key = event.key;
-      if (/^[0-9.]$/.test(key)) dispatch({ type: ACTIONS.ADD_DIGIT, payload: { digit: key } });
-      else if (keyboardOperations[key]) dispatch({ type: ACTIONS.CHOOSE_OPERATION, payload: { operation: keyboardOperations[key] } });
-      else if (key === 'Enter' || key === '=') dispatch({ type: ACTIONS.EVALUATE });
-      else if (key === 'Backspace') dispatch({ type: ACTIONS.DELETE_DIGIT });
-      else if (key === 'Escape') dispatch({ type: ACTIONS.CLEAR });
+      if (/^[0-9.]$/.test(key)) dispatchWithClear({ type: ACTIONS.ADD_DIGIT, payload: { digit: key } });
+      else if (keyboardOperations[key]) dispatchWithClear({ type: ACTIONS.CHOOSE_OPERATION, payload: { operation: keyboardOperations[key] } });
+      else if (key === 'Enter' || key === '=') dispatchWithClear({ type: ACTIONS.EVALUATE });
+      else if (key === 'Backspace') dispatchWithClear({ type: ACTIONS.DELETE_DIGIT });
+      else if (key === 'Escape') dispatchWithClear({ type: ACTIONS.CLEAR });
       else return;
       event.preventDefault();
     }
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  });
 
   function pressKey(key) {
     illuminateKey(key.label);
-    dispatch({
+    dispatchWithClear({
       type: key.action || ACTIONS.ADD_DIGIT,
       payload: key.action === ACTIONS.CHOOSE_OPERATION
         ? { operation: key.value }
@@ -76,9 +95,9 @@ function App() {
       <section className="calculator-grid" aria-label="Calculator">
         <div className="output" aria-label="Calculator display">
           <div className="display-topline"><span className="status-dot" /> SYSTEM ONLINE <span className="display-channel">CALC / 01</span></div>
-          <div className="previous-operand">{formatOperand(state.previousOperand)} {state.operation}</div>
+          <div className="previous-operand">{clearing ? <span key={`prev-${clearing.id}`} className="clear-digits">{Array.from(clearing.previous).map((char, i, chars) => <span key={i} style={{ '--clear-step': `${(chars.length - 1 - i) * (0.85 / Math.max(1, chars.length - 1))}s` }}>{char === ' ' ? '\u00a0' : char}</span>)}</span> : <>{formatOperand(state.previousOperand)} {state.operation}</>}</div>
           <div className="current-operand" aria-live="polite" aria-atomic="true">
-            {formatOperand(state.currentOperand)}
+            {clearing ? <span key={`current-${clearing.id}`} className="clear-digits">{Array.from(clearing.current).map((char, i, chars) => <span key={i} style={{ '--clear-step': `${(chars.length - 1 - i) * (0.85 / Math.max(1, chars.length - 1))}s` }}>{char}</span>)}</span> : formatOperand(state.currentOperand)}
           </div>
           <div className="display-bottomline"><span>READY FOR INPUT</span><span className="signal-bars" aria-hidden="true">▂ ▄ ▆ █</span></div>
         </div>
