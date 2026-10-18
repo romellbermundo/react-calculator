@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from 'react';
+import { useEffect, useReducer, useRef, useState } from 'react';
 import { ACTIONS, calculatorReducer, formatOperand, initialState } from './calculator';
 import './App.css';
 
@@ -21,6 +21,16 @@ const keyboardOperations = { '+': '+', '-': '−', '*': '×', '/': '÷' };
 function App() {
   const [state, dispatch] = useReducer(calculatorReducer, initialState);
   const [footerPanel, setFooterPanel] = useState(null);
+  const [glowingKey, setGlowingKey] = useState(null);
+  const glowTimer = useRef(null);
+
+  useEffect(() => () => window.clearTimeout(glowTimer.current), []);
+
+  function illuminateKey(label) {
+    window.clearTimeout(glowTimer.current);
+    setGlowingKey(label);
+    glowTimer.current = window.setTimeout(() => setGlowingKey(null), 1000);
+  }
 
   useEffect(() => {
     function handleKeyDown(event) {
@@ -39,6 +49,7 @@ function App() {
   }, []);
 
   function pressKey(key) {
+    illuminateKey(key.label);
     dispatch({
       type: key.action || ACTIONS.ADD_DIGIT,
       payload: key.action === ACTIONS.CHOOSE_OPERATION
@@ -68,7 +79,7 @@ function App() {
           <button
             key={key.label}
             type="button"
-            className={key.className || ''}
+            className={`${key.className || ''} ${glowingKey === key.label ? 'key-afterglow' : ''}`.trim()}
             aria-label={key.accessible || key.label}
             onClick={() => pressKey(key)}
           >
