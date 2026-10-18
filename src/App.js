@@ -117,11 +117,18 @@ function formatOperand(operand) {
     return `${INTEGER_FORMATTER.format(integer)}.${decimal}`
 }
 
-function App() {\n    const [footerPanel, setFooterPanel] = useState(null)
+function App() {
+    const [footerPanel, setFooterPanel] = useState(null)
     const [{ currentOperand, previousOperand, operation}, dispatch] = useReducer(reducer, {})
 
     return (
-      <div className="calculator-grid">
+      <main className="app-shell">
+        <header className="app-heading">
+          <span className="eyebrow">A LITTLE CLARITY, EVERY DAY</span>
+          <h1>The Quiet Calculator</h1>
+          <p>For the little things that add up.</p>
+        </header>
+      <div className="calculator-grid" aria-label="Calculator">
           <div className="output">
               <div className="previous-operand" aria-label="Previous calculation">{formatOperand(previousOperand)} {operation}</div>
               <div className="current-operand" aria-live="polite" aria-label="Current result">{formatOperand(currentOperand)}</div>
