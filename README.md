@@ -34,7 +34,7 @@
 
 **The Quiet Calculator** is a lightweight, responsive React calculator for everyday arithmetic. It pairs a practical keypad with soft colors, welcoming language, and an interface that stays out of your way.
 
-Originally developed as a React learning exercise, it has been thoughtfully refined into a small portfolio application while preserving the original calculator architecture.
+Originally developed as a React learning exercise, it has been thoughtfully rebuilt as a small portfolio application. The reducer and interface are now separated, the keypad is data-driven, and automated regression tests protect everyday arithmetic.
 
 Visitors can use the published website in a browser without installing React, downloading the repository, creating an account, or signing in.
 
@@ -66,7 +66,7 @@ OPEN THE QUIET CALCULATOR
     CONTINUE     CLEAR / DELETE
 ```
 
-React's `useReducer` manages input and calculations. Dedicated digit and operation button components dispatch actions to the reducer, which updates the display.
+React's `useReducer` manages input and calculations. The pure logic lives in `src/calculator.js`, while `App.js` renders a data-driven keypad, handles keyboard shortcuts, and displays the result.
 
 ---
 
@@ -87,6 +87,10 @@ Use **AC** to reset the calculation or **DEL** to remove the most recent digit.
 ### 🔁 Chained Calculations
 
 Continue with another operation without restarting from scratch.
+
+### ⌨️ Keyboard Support
+
+Use number keys, decimal point, `+`, `-`, `*`, `/`, Enter or `=`, Backspace, and Escape. The buttons also provide accessible labels and visible keyboard focus.
 
 ### 📱 Responsive Layout
 
@@ -165,15 +169,15 @@ react-calculator/
 ├── src/
 │   ├── App.js
 │   ├── App.css
-│   ├── DigitButton.js
-│   ├── OperationButton.js
+│   ├── calculator.js
+│   ├── calculator.test.js
 │   └── index.css
 ├── package.json
 ├── package-lock.json
 └── README.md
 ```
 
-The React components manage behavior and rendering; the stylesheet defines the visual experience.
+The pure calculator module handles state transitions and arithmetic, `App.js` renders the interface, and the stylesheet defines the visual experience. The old tutorial components, starter test, React logo, and unused web-vitals boilerplate have been removed.
 
 ---
 
@@ -182,8 +186,9 @@ The React components manage behavior and rendering; the stylesheet defines the v
 | Layer | Technology |
 |---|---|
 | Interface | React 18, JavaScript, HTML, CSS |
-| State management | React `useReducer` |
+| State management | React `useReducer` and a pure reducer module |
 | Supporting UI state | React `useState` |
+| Regression tests | Jest via react-scripts |
 | Build tooling | Create React App / react-scripts |
 | Hosting | GitHub Pages |
 | Automated deployment | GitHub Actions |
@@ -229,6 +234,15 @@ The subsequent visual refinement, responsive presentation, and documentation pre
 ---
 
 ## 🏷️ Version History
+
+### v1.1.0 — Architecture and reliability refactor
+
+- Extracted calculation logic into a dedicated, testable reducer module.
+- Rebuilt the keypad from a single declarative key configuration and added keyboard support.
+- Fixed decimal handling, operand replacement, division-by-zero display, and common floating-point artifacts.
+- Removed unused Create React App tutorial files and outdated starter tests.
+- Added calculator regression tests and required them to pass before automatic deployment.
+- Formatted the styles and simplified the React entry point while keeping the Quiet Calculator identity.
 
 ### v1.0.1 — GitHub Pages and portfolio documentation
 
