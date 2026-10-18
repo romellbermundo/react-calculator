@@ -388,6 +388,21 @@ button { font: inherit; }
   .calculator-grid > button:active::after { opacity: 1; }
 }
 
+
+/* One-second light memory: the key rises immediately, its illumination fades later. */
+.calculator-grid > button.key-afterglow:not(:active) {
+  border-color: #7bd9f6a6;
+  box-shadow: 0 0 17px #46baff42, inset 0 1px 0 #ffffff20;
+}
+.calculator-grid > button.key-afterglow:not(:active)::after { opacity: .7; }
+.calculator-grid > button.destructive-key.key-afterglow:not(:active) {
+  border-color: #bba7f4a6;
+  box-shadow: 0 0 18px #ab91ff52, inset 0 1px 0 #ffffff1c;
+}
+.calculator-grid > button.equals-key.key-afterglow:not(:active) {
+  box-shadow: 0 0 30px #42cfff8a, inset 0 1px 0 #fff9;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
