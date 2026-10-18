@@ -29,7 +29,7 @@ function App() {
   function illuminateKey(label) {
     window.clearTimeout(glowTimer.current);
     setGlowingKey(label);
-    glowTimer.current = window.setTimeout(() => setGlowingKey(null), 1000);
+    glowTimer.current = window.setTimeout(() => setGlowingKey(null), 500);
   }
 
   useEffect(() => {
