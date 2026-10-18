@@ -241,6 +241,12 @@ The subsequent visual refinement, responsive presentation, and documentation pre
 
 ## 🏷️ Version History
 
+### v1.4.1 — One-second key afterglow
+
+- Keys return to their normal physical position on release while retaining a subtle glow for one second.
+- The afterglow follows the most recently pressed key and then clears automatically.
+- Lavender destructive controls retain their distinct purple illumination.
+
 ### v1.4.0 — Ancient technology ambience
 
 - Changed AC and DEL from crimson to subtle lavender-purple.
