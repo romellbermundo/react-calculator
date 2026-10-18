@@ -241,6 +241,13 @@ The subsequent visual refinement, responsive presentation, and documentation pre
 
 ## 🏷️ Version History
 
+### v1.4.0 — Ancient technology ambience
+
+- Changed AC and DEL from crimson to subtle lavender-purple.
+- Added descending cyan-violet light traces outside the calculator, inspired by ancient alien technology.
+- Added a restrained breathing halo around the chassis.
+- Preserved responsive layout and reduced-motion accessibility.
+
 ### v1.3.0 — Tactile interface
 
 - Added responsive press-and-release key animations with physical depth, light bloom, and smooth rebound.
