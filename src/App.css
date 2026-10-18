@@ -270,6 +270,53 @@ button { font: inherit; }
   .calculator-grid::after { inset: -5px; border-radius: 30px; }
 }
 
+
+/* Hover illumination is for actual mouse/trackpad pointers only.
+   Touch browsers can otherwise leave the last tapped key glowing. */
+@media (hover: none), (pointer: coarse) {
+  .calculator-grid > button:hover {
+    background: linear-gradient(155deg, #1c2c40, #101c2c);
+    border-color: #5d819a35;
+    box-shadow: inset 0 1px 0 #ffffff0b, 0 4px 9px #0003;
+  }
+  .calculator-grid > button.operation-key:hover {
+    background: linear-gradient(145deg, #173349, #0d2639);
+  }
+  .calculator-grid > button.utility-key:hover {
+    background: linear-gradient(145deg, #253348, #192435);
+  }
+  .calculator-grid > button.destructive-key:hover {
+    color: #cbb7ff;
+    border-color: #8c72c64d;
+    background: linear-gradient(145deg, #30283f, #201c30);
+    box-shadow: inset 0 1px 0 #e5d8ff14, 0 4px 9px #0004;
+  }
+  .calculator-grid > button.equals-key:hover {
+    background: linear-gradient(120deg, #a2f6ff, #3bc8f4);
+    box-shadow: 0 0 22px #42cfff55, inset 0 1px 0 #fff9;
+  }
+  .calculator-grid > button:hover::after { opacity: 0; }
+  .calculator-grid > button:active,
+  .calculator-grid > button.operation-key:active,
+  .calculator-grid > button.utility-key:active {
+    transform: translateY(3px) scale(.955);
+    border-color: #9befff;
+    background: #28506a;
+    box-shadow: inset 0 5px 14px #0009, 0 0 20px #4adfff5c;
+  }
+  .calculator-grid > button.destructive-key:active {
+    color: #f3edff;
+    border-color: #c3adff;
+    background: #55446e;
+    box-shadow: inset 0 5px 14px #120b24b0, 0 0 22px #ad8aff60;
+  }
+  .calculator-grid > button.equals-key:active {
+    background: #80eaff;
+    box-shadow: inset 0 5px 15px #06709a7a, 0 0 28px #66eaff8a;
+  }
+  .calculator-grid > button:active::after { opacity: 1; }
+}
+
 /* NEXUS 01 / tactile interaction system */
 .calculator-grid > button {
   overflow: hidden;
