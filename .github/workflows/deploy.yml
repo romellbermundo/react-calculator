@@ -27,10 +27,14 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
+      - name: Run calculator regression tests
+        run: npm test -- --watch=false
+        env:
+          CI: 'true'
       - name: Build static React website
         run: npm run build
         env:
-          CI: 'false'
+          CI: 'true'
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       - name: Upload website
