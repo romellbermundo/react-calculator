@@ -1,4 +1,4 @@
-import { useReducer } from "react"
+import { useReducer, useState } from "react"
 import DigitButton from "./DigitButton"
 import OperationButton from "./OperationButton"
 import "./App.css"
@@ -117,17 +117,17 @@ function formatOperand(operand) {
     return `${INTEGER_FORMATTER.format(integer)}.${decimal}`
 }
 
-function App() {
+function App() {\n    const [footerPanel, setFooterPanel] = useState(null)
     const [{ currentOperand, previousOperand, operation}, dispatch] = useReducer(reducer, {})
 
     return (
       <div className="calculator-grid">
           <div className="output">
-              <div className="previous-operand">{formatOperand(previousOperand)} {operation}</div>
-              <div className="current-operand">{formatOperand(currentOperand)}</div>
+              <div className="previous-operand" aria-label="Previous calculation">{formatOperand(previousOperand)} {operation}</div>
+              <div className="current-operand" aria-live="polite" aria-label="Current result">{formatOperand(currentOperand)}</div>
           </div>
-          <button className="span-two" onClick={() => dispatch({ type: ACTIONS.CLEAR})}>AC</button>
-          <button onClick={() => dispatch({ type: ACTIONS.DELETE_DIGIT})}>DEL</button>
+          <button className="span-two utility-key" onClick={() => dispatch({ type: ACTIONS.CLEAR})}>AC</button>
+          <button className="utility-key" onClick={() => dispatch({ type: ACTIONS.DELETE_DIGIT})}>DEL</button>
           <OperationButton operation="÷" dispatch={dispatch}/>
           <DigitButton digit="1" dispatch={dispatch}/>
           <DigitButton digit="2" dispatch={dispatch}/>
@@ -143,8 +143,20 @@ function App() {
           <OperationButton operation="-" dispatch={dispatch}/>
           <DigitButton digit="." dispatch={dispatch}/>
           <DigitButton digit="0" dispatch={dispatch}/>
-          <button className="span-two" onClick={() => dispatch({ type: ACTIONS.EVALUATE})}>=</button>
+          <button className="span-two equals-key" onClick={() => dispatch({ type: ACTIONS.EVALUATE})}>=</button>
       </div>
+      <footer className="app-footer">
+        <span className="footer-symbol" aria-hidden="true">✳</span>
+        <p className="footer-quote">“A little clarity goes a long way.”</p>
+        <div className="footer-links">
+          <button type="button" onClick={() => setFooterPanel(footerPanel === "about" ? null : "about")}>About</button>
+          <button type="button" onClick={() => setFooterPanel(footerPanel === "disclaimer" ? null : "disclaimer")}>Disclaimer</button>
+          <a href="https://github.com/romellbermundo/react-calculator" target="_blank" rel="noopener noreferrer">Source code ↗</a>
+        </div>
+        <div className="footer-panel" aria-live="polite">{footerPanel === "about" ? "A simple calculator, thoughtfully refined for everyday moments." : footerPanel === "disclaimer" ? "For everyday calculations. Results may be affected by floating-point precision; verify important figures." : null}</div>
+        <small>The Quiet Calculator · v1.0.0</small>
+      </footer>
+      </main>
   )
 }
 
