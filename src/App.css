@@ -406,3 +406,15 @@ button { font: inherit; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+/* Brief randomized lavender activation sequence when the calculator opens. */
+@keyframes nexus-startup-light {
+  0%, 100% { filter: brightness(1); }
+  40%, 65% { filter: brightness(1.65); box-shadow: 0 0 18px rgba(190, 145, 255, .65), inset 0 0 16px rgba(190, 145, 255, .28); border-color: rgba(205, 173, 255, .9); }
+}
+.calculator-grid > button.startup-light {
+  animation: nexus-startup-light .45s ease-in-out var(--startup-delay, 0s) 1 both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .calculator-grid > button.startup-light { animation: none; }
+}
