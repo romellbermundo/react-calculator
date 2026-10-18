@@ -42,7 +42,7 @@ export function calculatorReducer(state, { type, payload }) {
       const current = state.currentOperand ?? '0';
       if (digit === '.' && current.includes('.')) return state;
       if (digit === '.' ) return { ...state, currentOperand: current + '.' };
-      if (current === '0') return { ...state, currentOperand: digit };
+      if (current === '0' || state.currentOperand == null) return { ...state, currentOperand: digit };
       return { ...state, currentOperand: current + digit };
     }
     case ACTIONS.CHOOSE_OPERATION: {
