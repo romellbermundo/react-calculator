@@ -2,9 +2,11 @@
 
 <div align="center">
 
-**The Future Is Calculated.**
+**THE FUTURE IS CALCULATED.**
 
-*A luminous precision interface for everyday calculations.*
+*Enter the next era of precision.*
+
+*An instrument from tomorrow. In your browser today.*
 
 [🌐 Open NEXUS 01](https://romellbermundo.github.io/react-calculator/) · [📦 Source Code](https://github.com/romellbermundo/react-calculator)
 
@@ -32,7 +34,11 @@
 
 ## 📖 About NEXUS 01
 
-**NEXUS 01** is a lightweight, responsive React calculator for everyday arithmetic. It pairs a practical keypad with cinematic graphite surfaces, luminous cyan accents, subtle display animation, and a keypad that stays intuitive.
+**Imagine a calculator designed fifty years into the future.** Not a collection of ordinary buttons, but a precision instrument: a dark, sculpted surface; light that responds to your touch; and a display that seems quietly alive.
+
+**NEXUS 01** brings that vision to everyday arithmetic. Its graphite interface, luminous cyan numbers, and subtle system animations evoke a next-generation control console—while keeping every calculation familiar and effortless.
+
+**The future is calculated.** Technology can feel extraordinary without making the task complicated.
 
 Originally developed as a React learning exercise, it has been thoughtfully rebuilt as a small portfolio application. The reducer and interface are now separated, the keypad is data-driven, and automated regression tests protect everyday arithmetic.
 
@@ -43,7 +49,7 @@ Visitors can use the published website in a browser without installing React, do
 ## 🔄 How It Works
 
 ```text
-OPEN THE QUIET CALCULATOR
+ACTIVATE NEXUS 01
             │
             ▼
       ENTER A NUMBER
@@ -96,7 +102,7 @@ Use number keys, decimal point, `+`, `-`, `*`, `/`, Enter or `=`, Backspace, and
 
 A compact keypad adjusts to smaller screens, making the calculator practical on phones and desktop browsers.
 
-### 🌿 Thoughtful Presentation
+### ⚡ A Living Precision Display
 
 Deep graphite surfaces, precise neon-cyan highlights, luminous numbers, and layered shadows create a futuristic technology aesthetic. Subtle screen animations make the display feel alive without sacrificing readability.
 
@@ -200,14 +206,14 @@ The pure calculator module handles state transitions and arithmetic, `App.js` re
 
 **Meaningful, but not mechanical.**
 
-NEXUS 01 follows the Veritas approach to software design:
+NEXUS 01 imagines the kind of instrument that could sit on a laboratory desk, a spacecraft console, or a futuristic engineer's workstation. Its visual language is deliberate: light signals readiness, shadows create depth, and the numbers command attention.
 
-- **Simplicity first:** Keep the essential controls immediately available.
-- **Human connection:** A small welcoming phrase can make everyday software feel personal.
-- **Quiet elegance:** Use thoughtful spacing, restrained color, and readable typography.
-- **Progressive disclosure:** Show supporting information only when requested.
-- **Purposeful personality:** Give each application its own identity without unnecessary decoration.
-- **Function before ornament:** Preserve the calculator's usefulness and predictable interactions.
+- **Precision over spectacle:** The answer remains the focal point, not the effects around it.
+- **Technology that feels alive:** Soft pulses and moving light suggest an active system without distracting from the calculation.
+- **Futurism with purpose:** Every glow, surface, and interaction serves clarity and feedback.
+- **Power without complexity:** Familiar controls make the interface immediately usable.
+- **Progressive disclosure:** Supporting information stays out of sight until requested.
+- **A distinct identity:** Unlike the warmth of Cooking Journal, NEXUS 01 expresses Veritas through precision, technology, and a vision of tomorrow.
 
 *Simple on the surface. Thoughtful underneath. Beautiful by intention.*
 
@@ -235,6 +241,12 @@ The subsequent visual refinement, responsive presentation, and documentation pre
 
 ## 🏷️ Version History
 
+### v1.2.1 — The future is calculated
+
+- Reframed the README as an invitation into a futuristic precision interface.
+- Expanded the introduction and design philosophy to explain the living display, purposeful lighting, and next-generation instrument aesthetic.
+- Refined the project tagline and corrected historical version descriptions.
+
 ### v1.2.0 — NEXUS 01 futuristic interface
 
 - Reimagined the warm Quiet Calculator aesthetic as NEXUS 01, a cinematic future-facing precision instrument.
@@ -250,7 +262,7 @@ The subsequent visual refinement, responsive presentation, and documentation pre
 - Fixed decimal handling, operand replacement, division-by-zero display, and common floating-point artifacts.
 - Removed unused Create React App tutorial files and outdated starter tests.
 - Added calculator regression tests and required them to pass before automatic deployment.
-- Formatted the styles and simplified the React entry point while keeping NEXUS 01 identity.
+- Formatted the styles and simplified the React entry point while keeping the Quiet Calculator identity of that release.
 
 ### v1.0.1 — GitHub Pages and portfolio documentation
 
@@ -259,7 +271,7 @@ The subsequent visual refinement, responsive presentation, and documentation pre
 - Updated the browser title and metadata.
 - Rebuilt the README using the Cooking Journal documentation pattern, including a table of contents, process diagram, setup and deployment instructions, technology, privacy, credits, and version history.
 
-### v1.0.0 — NEXUS 01
+### v1.0.0 — The Quiet Calculator
 
 - Introduced a warm, responsive visual identity and welcoming microcopy.
 - Added an understated footer with a shared, invisible centered detail area.
