@@ -23,8 +23,15 @@ function App() {
   const [footerPanel, setFooterPanel] = useState(null);
   const [glowingKey, setGlowingKey] = useState(null);
   const glowTimer = useRef(null);
+  const [startupLights] = useState(() => keys.map(() => Math.random() * 0.55));
+  const [startupActive, setStartupActive] = useState(true);
 
   useEffect(() => () => window.clearTimeout(glowTimer.current), []);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setStartupActive(false), 1000);
+    return () => window.clearTimeout(timer);
+  }, []);
 
   function illuminateKey(label) {
     window.clearTimeout(glowTimer.current);
@@ -79,7 +86,8 @@ function App() {
           <button
             key={key.label}
             type="button"
-            className={`${key.className || ''} ${glowingKey === key.label ? 'key-afterglow' : ''}`.trim()}
+            className={`${key.className || ''} ${glowingKey === key.label ? 'key-afterglow' : ''} ${startupActive ? 'startup-light' : ''}`.trim()}
+            style={startupActive ? { '--startup-delay': `${startupLights[keys.indexOf(key)]}s` } : undefined}
             aria-label={key.accessible || key.label}
             onClick={() => pressKey(key)}
           >
