@@ -3,8 +3,8 @@ import { ACTIONS, calculatorReducer, formatOperand, initialState } from './calcu
 import './App.css';
 
 const keys = [
-  { label: 'AC', action: ACTIONS.CLEAR, className: 'span-two utility-key', accessible: 'Clear all' },
-  { label: 'DEL', action: ACTIONS.DELETE_DIGIT, className: 'utility-key', accessible: 'Delete last digit' },
+  { label: 'AC', action: ACTIONS.CLEAR, className: 'span-two utility-key destructive-key', accessible: 'Clear all' },
+  { label: 'DEL', action: ACTIONS.DELETE_DIGIT, className: 'utility-key destructive-key', accessible: 'Delete last digit' },
   { label: '÷', action: ACTIONS.CHOOSE_OPERATION, value: '÷', className: 'operation-key', accessible: 'Divide' },
   { label: '7' }, { label: '8' }, { label: '9' },
   { label: '×', action: ACTIONS.CHOOSE_OPERATION, value: '×', className: 'operation-key', accessible: 'Multiply' },
@@ -56,11 +56,13 @@ function App() {
       </header>
 
       <section className="calculator-grid" aria-label="Calculator">
-        <div className="output" aria-label="Calculator display">\n          <div className="display-topline"><span className="status-dot" /> SYSTEM ONLINE <span className="display-channel">CALC / 01</span></div>
+        <div className="output" aria-label="Calculator display">
+          <div className="display-topline"><span className="status-dot" /> SYSTEM ONLINE <span className="display-channel">CALC / 01</span></div>
           <div className="previous-operand">{formatOperand(state.previousOperand)} {state.operation}</div>
           <div className="current-operand" aria-live="polite" aria-atomic="true">
             {formatOperand(state.currentOperand)}
           </div>
+          <div className="display-bottomline"><span>READY FOR INPUT</span><span className="signal-bars" aria-hidden="true">▂ ▄ ▆ █</span></div>
         </div>
         {keys.map((key) => (
           <button
@@ -87,7 +89,7 @@ function App() {
           {footerPanel === 'about' && 'NEXUS 01 is a futuristic, responsive calculator built with React. A precision instrument for everyday arithmetic.'}
           {footerPanel === 'disclaimer' && 'For everyday calculations. Results may be affected by floating-point precision; verify important figures.'}
         </div>
-        <small>NEXUS 01 · v1.2.0</small>
+        <small>NEXUS 01 · v1.3.0</small>
       </footer>
     </main>
   );
