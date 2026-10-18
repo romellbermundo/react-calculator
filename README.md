@@ -241,6 +241,13 @@ The subsequent visual refinement, responsive presentation, and documentation pre
 
 ## 🏷️ Version History
 
+### v1.3.0 — Tactile interface
+
+- Added responsive press-and-release key animations with physical depth, light bloom, and smooth rebound.
+- Distinguished AC and DEL with restrained crimson lighting to signal destructive actions.
+- Added a subtle display awakening animation while retaining reduced-motion accessibility.
+- Fixed malformed display JSX and restored the display status footer.
+
 ### v1.2.1 — The future is calculated
 
 - Reframed the README as an invitation into a futuristic precision interface.
