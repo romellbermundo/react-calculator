@@ -1,12 +1,12 @@
-# 🧮 The Quiet Calculator
+# 🧮 NEXUS 01
 
 <div align="center">
 
-**A Little Clarity Goes a Long Way.**
+**The Future Is Calculated.**
 
-*A calm, thoughtful calculator for the little things that add up.*
+*A luminous precision interface for everyday calculations.*
 
-[🌐 Open The Quiet Calculator](https://romellbermundo.github.io/react-calculator/) · [📦 Source Code](https://github.com/romellbermundo/react-calculator)
+[🌐 Open NEXUS 01](https://romellbermundo.github.io/react-calculator/) · [📦 Source Code](https://github.com/romellbermundo/react-calculator)
 
 </div>
 
@@ -16,7 +16,7 @@
 
 ## 📑 Table of Contents
 
-- [About The Quiet Calculator](#-about-the-quiet-calculator)
+- [About NEXUS 01](#-about-the-quiet-calculator)
 - [How It Works](#-how-it-works)
 - [Key Features](#-key-features)
 - [Getting Started](#-getting-started)
@@ -30,9 +30,9 @@
 
 ---
 
-## 📖 About The Quiet Calculator
+## 📖 About NEXUS 01
 
-**The Quiet Calculator** is a lightweight, responsive React calculator for everyday arithmetic. It pairs a practical keypad with soft colors, welcoming language, and an interface that stays out of your way.
+**NEXUS 01** is a lightweight, responsive React calculator for everyday arithmetic. It pairs a practical keypad with cinematic graphite surfaces, luminous cyan accents, subtle display animation, and a keypad that stays intuitive.
 
 Originally developed as a React learning exercise, it has been thoughtfully rebuilt as a small portfolio application. The reducer and interface are now separated, the keypad is data-driven, and automated regression tests protect everyday arithmetic.
 
@@ -98,7 +98,7 @@ A compact keypad adjusts to smaller screens, making the calculator practical on 
 
 ### 🌿 Thoughtful Presentation
 
-Soft greens, warm neutral colors, rounded keys, and clear typography create a welcoming everyday experience.
+Deep graphite surfaces, precise neon-cyan highlights, luminous numbers, and layered shadows create a futuristic technology aesthetic. Subtle screen animations make the display feel alive without sacrificing readability.
 
 ### 💬 Quiet, Expandable Footer
 
@@ -110,7 +110,7 @@ The **About** and **Disclaimer** controls reveal information in one shared, invi
 
 ### Option A — Use the live website
 
-Visit **[The Quiet Calculator](https://romellbermundo.github.io/react-calculator/)** once GitHub Pages deployment has completed. No installation is needed.
+Visit **[NEXUS 01](https://romellbermundo.github.io/react-calculator/)** once GitHub Pages deployment has completed. No installation is needed.
 
 ### Option B — Run locally
 
@@ -200,7 +200,7 @@ The pure calculator module handles state transitions and arithmetic, `App.js` re
 
 **Meaningful, but not mechanical.**
 
-The Quiet Calculator follows the Veritas approach to software design:
+NEXUS 01 follows the Veritas approach to software design:
 
 - **Simplicity first:** Keep the essential controls immediately available.
 - **Human connection:** A small welcoming phrase can make everyday software feel personal.
@@ -235,6 +235,14 @@ The subsequent visual refinement, responsive presentation, and documentation pre
 
 ## 🏷️ Version History
 
+### v1.2.0 — NEXUS 01 futuristic interface
+
+- Reimagined the warm Quiet Calculator aesthetic as NEXUS 01, a cinematic future-facing precision instrument.
+- Added a near-black graphite palette, cyan light accents, glass-like shadows, and glowing numeric display.
+- Introduced restrained display scanlines, a scanning light, a pulsing system indicator, and responsive button lighting.
+- Preserved keyboard support, core arithmetic, and reduced-motion accessibility.
+- Updated browser metadata, title, and theme color to match the new identity.
+
 ### v1.1.0 — Architecture and reliability refactor
 
 - Extracted calculation logic into a dedicated, testable reducer module.
@@ -242,7 +250,7 @@ The subsequent visual refinement, responsive presentation, and documentation pre
 - Fixed decimal handling, operand replacement, division-by-zero display, and common floating-point artifacts.
 - Removed unused Create React App tutorial files and outdated starter tests.
 - Added calculator regression tests and required them to pass before automatic deployment.
-- Formatted the styles and simplified the React entry point while keeping the Quiet Calculator identity.
+- Formatted the styles and simplified the React entry point while keeping NEXUS 01 identity.
 
 ### v1.0.1 — GitHub Pages and portfolio documentation
 
@@ -251,7 +259,7 @@ The subsequent visual refinement, responsive presentation, and documentation pre
 - Updated the browser title and metadata.
 - Rebuilt the README using the Cooking Journal documentation pattern, including a table of contents, process diagram, setup and deployment instructions, technology, privacy, credits, and version history.
 
-### v1.0.0 — The Quiet Calculator
+### v1.0.0 — NEXUS 01
 
 - Introduced a warm, responsive visual identity and welcoming microcopy.
 - Added an understated footer with a shared, invisible centered detail area.
